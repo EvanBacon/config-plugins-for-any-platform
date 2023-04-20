@@ -20,6 +20,7 @@ const addWarningWindows = WarningAggregator.addWarningForPlatform.bind(
   "windows"
 );
 
+import path from "path";
 const { readFile, writeFile } = promises;
 
 type WindowsModName = keyof Required<ModConfig>["ios"];
@@ -43,8 +44,8 @@ const defaultProviders = {
   // Append a rule to supply a mock file to mods on `mods.windows.foobar`
   foobar: provider<FooBar>({
     isIntrospective: true,
-    getFilePath({ modRequest: { projectRoot } }) {
-      return projectRoot;
+    getFilePath({ modRequest: { platformProjectRoot } }) {
+      return path.join(platformProjectRoot, "foobar.json");
     },
     async read(filePath) {
       try {
