@@ -13,13 +13,10 @@ import {
 } from "@expo/config-plugins/build/plugins/createBaseMod";
 import { promises } from "fs";
 
-// import { Entitlements, Paths } from '../ios';
-// import { ensureApplicationTargetEntitlementsFileConfigured } from '../ios/Entitlements';
-// import { InfoPlist } from '../ios/WindowsConfig.types';
-// import { getPbxproj } from '../ios/utils/Xcodeproj';
-// import { getInfoPlistPathFromPbxproj } from '../ios/utils/getInfoPlistPath';
+// @ts-ignore
 const addWarningWindows = WarningAggregator.addWarningForPlatform.bind(
   this,
+  // @ts-ignore
   "windows"
 );
 
