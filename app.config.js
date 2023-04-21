@@ -1,4 +1,5 @@
 require("ts-node/register");
+
 const {
   withWindowsBaseMods,
   withWindowsFooBar,

@@ -2,7 +2,6 @@ import {
   ConfigPlugin,
   ExportedConfig,
   Mod,
-  ModConfig,
   WarningAggregator,
   withMod,
 } from "@expo/config-plugins";
@@ -12,6 +11,7 @@ import {
   withGeneratedBaseMods,
 } from "@expo/config-plugins/build/plugins/createBaseMod";
 import { promises } from "fs";
+import path from "path";
 
 // @ts-ignore
 const addWarningWindows = WarningAggregator.addWarningForPlatform.bind(
@@ -20,10 +20,16 @@ const addWarningWindows = WarningAggregator.addWarningForPlatform.bind(
   "windows"
 );
 
-import path from "path";
 const { readFile, writeFile } = promises;
 
-type WindowsModName = keyof Required<ModConfig>["ios"];
+type WindowsModConfig = {
+  /** Dangerously make a modification before any other android mods have been run. */
+  dangerous?: Mod<unknown>;
+
+  foobar?: Mod<FooBar>;
+};
+
+type WindowsModName = keyof Required<WindowsModConfig>;
 
 // Demo file type
 type FooBar = { foo: string };
