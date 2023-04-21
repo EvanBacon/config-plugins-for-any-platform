@@ -46,27 +46,6 @@ export function createPlatformPluginSupport(
       async write() {},
     }),
     ...providers,
-    //   // Append a rule to supply a mock file to mods on `mods.windows.foobar`
-    //   foobar: provider<FooBar>({
-    //     isIntrospective: true,
-    //     getFilePath({ modRequest: { platformProjectRoot } }) {
-    //       return path.join(platformProjectRoot, "foobar.json");
-    //     },
-    //     async read(filePath) {
-    //       try {
-    //         return JSON.parse(await readFile(filePath, "utf-8"));
-    //       } catch {
-    //         addWarning("foobar", "Could not read foobar.json, using default.");
-    //         return { foo: "bar" };
-    //       }
-    //     },
-    //     async write(filePath: string, { modResults, modRequest: { introspect } }) {
-    //       if (introspect) {
-    //         return;
-    //       }
-    //       await writeFile(filePath, JSON.stringify(modResults));
-    //     },
-    //   }),
   };
 
   function withBaseMods(
@@ -90,16 +69,6 @@ export function createPlatformPluginSupport(
     return defaultProviders;
   }
 
-  //   /** Provides the FooBar file for modification. */
-  //   const withWindowsFooBar: ConfigPlugin<Mod<FooBar>> = (config, action) => {
-  //     return withMod(config, {
-  //       // @ts-expect-error
-  //       platform,
-  //       mod: "foobar",
-  //       action,
-  //     });
-  //   };
-
   const helpers = {};
 
   Object.entries(defaultProviders).map(([name, value]) => {
@@ -120,15 +89,13 @@ export function createPlatformPluginSupport(
     });
 
     helpers[funcName] = withUnknown;
-
-    // return withUnknown;
   });
 
   return {
     withBaseMods,
     getModFileProviders,
     addWarning,
-    // [ withWindowsDangerous, withWindowsFooBar ]
+    // { withWindowsDangerous, withWindowsFooBar }
     ...helpers,
   };
 }
